@@ -30,22 +30,16 @@ def dlt_homography(I1pts, I2pts):
             [-x[point], -y[point], -1,  0,    0,    0,   u[point]*x[point],  u[point]*y[point],  u[point]],
             [ 0,     0,    0, -x[point], -y[point], -1,  v[point]*x[point],  v[point]*y[point],  v[point]]
         ])
-        A = np.append(A, two_equations)
+        A = np.append(A, two_equations, axis=0)
     
-    A = np.array([
-        # First point Correspondance
-        [-x[0], -y[0], -1,  0,    0,    0,   u[0]*x[0],  u[0]*y[0],  u[0]],
-        [ 0,     0,    0, -x[0], -y[0], -1,   v[0]*x[0],  v[0]*y[0],  v[0]]
-        # Second Point Correspondance
-        [],
-        [],
-        # Third Point Correspondance
-        [],
-        [],
-        # Fourth Point Correspondance
-        [],
-        []
-
+    # Homography Matrix
+    # H is the nullspace of matrix A
+    null = null_space(A)[:,0]
+    H = np.array([
+        null[0:3],
+        null[3:6],
+        null[6:]
     ])
+
 
     return H, A

@@ -19,12 +19,16 @@ def dlt_homography(I1pts, I2pts):
     H  - 3x3 np.array of perspective homography (matrix map) between image coordinates.
     A  - 8x9 np.array of DLT matrix used to determine homography.
     """
+    # Create variables for point locations
     u = I1pts[0, :]
     v = I1pts[1, :]
     x = I2pts[0, :]
     y = I2pts[1, :]
+
+    # Create empty DLT Matrix
     A = np.array()
 
+    # For Each of the four points add two equations to the DLT matrix
     for point in range(u.shape[1]):
         two_equations = np.array([
             [-x[point], -y[point], -1,  0,    0,    0,   u[point]*x[point],  u[point]*y[point],  u[point]],
@@ -32,7 +36,7 @@ def dlt_homography(I1pts, I2pts):
         ])
         A = np.append(A, two_equations, axis=0)
     
-    
+
     # Homography Matrix
     # H is the nullspace of matrix A
     null = null_space(A)[:,0]

@@ -23,11 +23,35 @@ def bilinear_interp(I, pt):
     --------
     b  - Interpolated brightness or intensity value (whole number >= 0).
     """
-    #--- FILL ME IN ---
 
     if pt.shape != (2, 1):
         raise ValueError('Point size is incorrect.')
 
-    #------------------
+    # Interpolation Performed with 4 surrounding pixels
+    # x1, y1 are floor of point and x2, y2 are 1 greater than the floor
+
+    # Get pixel coordinates
+    x = pt[0]
+    y = pt[1]
+    x1 = int(np.floor(x))
+    y1 = int(np.floor(y))
+    x2 = x1 + 1
+    y2 = y1 + 1
+
+    # Get intensity values
+    b11 = I[x1, y1]
+    b12 = I[x1, y2]
+    b21 = I[x2, y1]
+    b22 = I[x2, y2]
+
+    # Interpolation weights 
+    wx = x - x1
+    wy = y - y1
+
+    # Bilinear Interpolation
+    b1 = (1 - wx) * b11 + wx * b12
+    b2 = (1 - wx) * b21 + wx * b22
+    b = (1 - wy) * b1 + (1 - wy) * b2
+
 
     return b

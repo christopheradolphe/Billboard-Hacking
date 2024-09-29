@@ -32,6 +32,7 @@ def dlt_homography(I1pts, I2pts):
         ])
         A = np.append(A, two_equations, axis=0)
     
+    
     # Homography Matrix
     # H is the nullspace of matrix A
     null = null_space(A)[:,0]
@@ -40,6 +41,9 @@ def dlt_homography(I1pts, I2pts):
         null[3:6],
         null[6:]
     ])
+
+    # Normalize Matrix so lower right entry is 1
+    H_normalized = H / H[2,2]
 
 
     return H, A

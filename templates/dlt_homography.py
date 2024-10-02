@@ -35,7 +35,7 @@ def dlt_homography(I1pts, I2pts):
             [ 0,     0,    0, -x[point], -y[point], -1,  v[point]*x[point],  v[point]*y[point],  v[point]]
         ])
         A = np.vstack([A, two_equations])
-    
+
 
     # Homography Matrix
     # H is the nullspace of matrix A
@@ -47,7 +47,7 @@ def dlt_homography(I1pts, I2pts):
     ])
 
     # Normalize Matrix so lower right entry is 1
-    H_normalized = H / H[2,2]
+    H = H / H[2,2]
 
 
     return H, A

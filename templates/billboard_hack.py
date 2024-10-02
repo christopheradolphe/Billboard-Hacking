@@ -31,14 +31,12 @@ def billboard_hack():
     Ihack = np.asarray(Iyd)
     Ist = np.asarray(Ist)
 
-    #--- FILL ME IN ---
-
     # Let's do the histogram equalization first.
     J = histogram_eq(Ist)
     
 
     # Perspective Homography from Yonge Dundas to Soldiers Tower
-    H = dlt_homography(Iyd_pts, Ist_pts)
+    H, A = dlt_homography(Iyd_pts, Ist_pts)
 
     # Main 'for' loop to do the warp and insertion - 
     # this could be vectorized to be faster if needed!

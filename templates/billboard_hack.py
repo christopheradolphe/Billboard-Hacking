@@ -25,8 +25,8 @@ def billboard_hack():
     Iyd_pts = np.array([[416, 485, 488, 410], [40,  61, 353, 349]])
     Ist_pts = np.array([[2, 218, 218, 2], [2, 2, 409, 409]])
 
-    Iyd = imread('../images/yonge_dundas_square.jpg')
-    Ist = imread('../images/uoft_soldiers_tower_light.png')
+    Iyd = imread('images/yonge_dundas_square.jpg')
+    Ist = imread('images/uoft_soldiers_tower_light.png')
 
     Ihack = np.asarray(Iyd)
     Ist = np.asarray(Ist)

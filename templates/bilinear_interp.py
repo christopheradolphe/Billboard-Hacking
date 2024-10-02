@@ -54,4 +54,4 @@ def bilinear_interp(I, pt):
     b = (1 - wy) * b1 + (1 - wy) * b2
 
 
-    return b
+    return int(b[0])

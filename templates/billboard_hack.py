@@ -34,9 +34,11 @@ def billboard_hack():
     #--- FILL ME IN ---
 
     # Let's do the histogram equalization first.
+    J = histogram_eq(Ist)
     
 
-    # Compute the perspective homography we need...
+    # Perspective Homography from Yonge Dundas to Soldiers Tower
+    H = dlt_homography(Iyd_pts, Ist_pts)
 
     # Main 'for' loop to do the warp and insertion - 
     # this could be vectorized to be faster if needed!
@@ -52,3 +54,6 @@ def billboard_hack():
     # imwrite(Ihack, 'billboard_hacked.png');
 
     return Ihack
+
+if __name__ == "__main__":
+    billboard_hack()

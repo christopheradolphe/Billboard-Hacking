@@ -34,6 +34,7 @@ def billboard_hack():
     #--- FILL ME IN ---
 
     # Let's do the histogram equalization first.
+    
 
     # Compute the perspective homography we need...
 

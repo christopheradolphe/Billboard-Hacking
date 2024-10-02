@@ -26,15 +26,15 @@ def dlt_homography(I1pts, I2pts):
     y = I2pts[1, :]
 
     # Create empty DLT Matrix
-    A = np.array()
+    A = np.empty((0, 9))
 
     # For Each of the four points add two equations to the DLT matrix
-    for point in range(u.shape[1]):
+    for point in range(u.shape[0]):
         two_equations = np.array([
             [-x[point], -y[point], -1,  0,    0,    0,   u[point]*x[point],  u[point]*y[point],  u[point]],
             [ 0,     0,    0, -x[point], -y[point], -1,  v[point]*x[point],  v[point]*y[point],  v[point]]
         ])
-        A = np.append(A, two_equations, axis=0)
+        A = np.vstack([A, two_equations])
     
 
     # Homography Matrix

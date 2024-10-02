@@ -24,8 +24,10 @@ def histogram_eq(I):
     hist, bins = np.histogram(I, bins=256)
 
     # CDF
-    cdf = hist.cumsum()
-    cdf_normalized = cdf * 255
+    cdf = hist.cumsum() / I.size
+    cdf_scaled = cdf * 255
+    cdf_scaled = np.round(cdf_scaled)
 
+    J = cdf_scaled[I]
 
     return J

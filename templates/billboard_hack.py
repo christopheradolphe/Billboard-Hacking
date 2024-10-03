@@ -28,8 +28,8 @@ def billboard_hack():
     Ist_pts = np.array([[2, 218, 218, 2], [2, 2, 409, 409]])
 
     # Read in the images
-    Iyd = imread('images/yonge_dundas_square.jpg')
-    Ist = imread('images/uoft_soldiers_tower_light.png')
+    Iyd = imread('../images/yonge_dundas_square.jpg')
+    Ist = imread('../images/uoft_soldiers_tower_light.png')
 
     # Create numpy array for images
     Ihack = np.asarray(Iyd)

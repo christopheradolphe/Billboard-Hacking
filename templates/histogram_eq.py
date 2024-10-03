@@ -20,15 +20,22 @@ def histogram_eq(I):
     if I.dtype != np.uint8:
         raise ValueError('Incorrect image format!')
 
-    # Calculate the histogram
+    # Calculate the histogram of Image I intensities
     hist, bins = np.histogram(I, bins=256, range=(0, 256))
 
-    # CDF
-    cdf = hist.cumsum() # Normalize
+    # Compute the CDF
+    cdf = hist.cumsum()
+
+    # Normalize CDF to be in the range [0,1]
     cdf = cdf / cdf[-1]
+
+    # Scale CDF to [0, 255] for intensity mapping
     cdf_scaled = cdf * 255
+
+    # Round intensities to nearest integer
     cdf_scaled = np.round(cdf_scaled)
 
+    # Apply the CDF mapping to the original image
     J = cdf_scaled[I]
 
     return J

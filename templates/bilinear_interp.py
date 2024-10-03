@@ -28,17 +28,20 @@ def bilinear_interp(I, pt):
         raise ValueError('Point size is incorrect.')
 
     # Interpolation Performed with 4 surrounding pixels
-    # x1, y1 are floor of point and x2, y2 are 1 greater than the floor
+    # x1, y1 are floor of x,y coordinates
+    # x2, y2 are 1 greater than the floor
 
-    # Get pixel coordinates
+    # Get actual pixel coordinates
     x = pt[0,0]
     y = pt[1,0]
+
+    # Surrounding pixel coordinates
     x1 = int(np.floor(x))
     y1 = int(np.floor(y))
     x2 = x1 + 1
     y2 = y1 + 1
 
-    # Get intensity values
+    # Get intensity values of four surrounding pixels
     b11 = I[y1, x1]
     b12 = I[y1, x2]
     b21 = I[y2, x1]
@@ -52,6 +55,5 @@ def bilinear_interp(I, pt):
     b1 = (1 - wx) * b11 + wx * b12
     b2 = (1 - wx) * b21 + wx * b22
     b = (1 - wy) * b1 + wy * b2
-
 
     return b

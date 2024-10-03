@@ -26,8 +26,8 @@ def billboard_hack():
     Iyd_pts = np.array([[416, 485, 488, 410], [40,  61, 353, 349]])
     Ist_pts = np.array([[2, 218, 218, 2], [2, 2, 409, 409]])
 
-    Iyd = imread('images/yonge_dundas_square.jpg')
-    Ist = imread('images/uoft_soldiers_tower_light.png')
+    Iyd = imread('../images/yonge_dundas_square.jpg')
+    Ist = imread('../images/uoft_soldiers_tower_light.png')
 
     Ihack = np.asarray(Iyd)
     Ist = np.asarray(Ist)
@@ -49,7 +49,11 @@ def billboard_hack():
                 # Find if point in path
                 pt = np.array([[x, y, 1]]).T
                 sampling_pt = H @ pt
-                Ihack[y, x] = bilinear_interp(J, np.array([[sampling_pt[0][0]], [sampling_pt[1][0]]]))
+                sampling_pt = (sampling_pt / sampling_pt[2])
+                sampling_pt = np.array([[sampling_pt[0][0], sampling_pt[1][0]]]).T
+                if sampling_pt[0] >= 0 and sampling_pt[0] < Ist.shape[1] - 1:
+                    if sampling_pt[1] >= 0 and sampling_pt[1] < Ist.shape[0] - 1:
+                        Ihack[y, x] = bilinear_interp(J, sampling_pt)
 
     # You may wish to make use of the contains_points() method
     # available in the matplotlib.path.Path class!
@@ -57,8 +61,8 @@ def billboard_hack():
     #------------------
 
     # # Visualize the result, if desired...
-    plt.imshow(Ihack)
-    plt.show()
+    # plt.imshow(Ihack)
+    # plt.show()
 
     return Ihack
 

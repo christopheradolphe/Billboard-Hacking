@@ -37,7 +37,6 @@ def billboard_hack():
 
     # Perform histogram equalization on the sampling image
     J = histogram_eq(Ist)
-    
 
     # Compute the DLT homography matrix
     H, A = dlt_homography(Iyd_pts, Ist_pts)

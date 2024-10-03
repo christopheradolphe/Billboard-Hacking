@@ -21,10 +21,11 @@ def histogram_eq(I):
         raise ValueError('Incorrect image format!')
 
     # Calculate the histogram
-    hist, bins = np.histogram(I, bins=256)
+    hist, bins = np.histogram(I, bins=256, range=(0, 256))
 
     # CDF
-    cdf = hist.cumsum() / I.size
+    cdf = hist.cumsum() # Normalize
+    cdf = cdf / cdf[-1]
     cdf_scaled = cdf * 255
     cdf_scaled = np.round(cdf_scaled)
 

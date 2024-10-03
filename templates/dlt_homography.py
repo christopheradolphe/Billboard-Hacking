@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.linalg import inv, norm
 from scipy.linalg import null_space
 
 def dlt_homography(I1pts, I2pts):
@@ -20,31 +19,23 @@ def dlt_homography(I1pts, I2pts):
     A  - 8x9 np.array of DLT matrix used to determine homography.
     """
     # Create variables for point locations
-    u = I1pts[0, :]
-    v = I1pts[1, :]
-    x = I2pts[0, :]
-    y = I2pts[1, :]
+    x = I1pts[0, :]
+    y = I1pts[1, :]
+    u = I2pts[0, :]
+    v = I2pts[1, :]
 
     # Create empty DLT Matrix
-    A = np.empty((0, 9))
+    A = np.empty((8, 9))
 
     # For Each of the four points add two equations to the DLT matrix
     for point in range(u.shape[0]):
-        two_equations = np.array([
-            [-x[point], -y[point], -1,  0,    0,    0,   u[point]*x[point],  u[point]*y[point],  u[point]],
-            [ 0,     0,    0, -x[point], -y[point], -1,  v[point]*x[point],  v[point]*y[point],  v[point]]
-        ])
-        A = np.vstack([A, two_equations])
-
+        A[2 * point] = [-x[point], -y[point], -1,  0,    0,    0,   u[point]*x[point],  u[point]*y[point],  u[point]]
+        A[2 * point + 1] = [ 0,     0,    0, -x[point], -y[point], -1,  v[point]*x[point],  v[point]*y[point],  v[point]]
 
     # Homography Matrix
     # H is the nullspace of matrix A
-    null = null_space(A)[:,0]
-    H = np.array([
-        null[0:3],
-        null[3:6],
-        null[6:]
-    ])
+    null = null_space(A)
+    H = null.reshape((3,3))
 
     # Normalize Matrix so lower right entry is 1
     H = H / H[2,2]

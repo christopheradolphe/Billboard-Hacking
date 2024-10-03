@@ -31,18 +31,18 @@ def bilinear_interp(I, pt):
     # x1, y1 are floor of point and x2, y2 are 1 greater than the floor
 
     # Get pixel coordinates
-    x = pt[0]
-    y = pt[1]
+    x = pt[0,0]
+    y = pt[1,0]
     x1 = int(np.floor(x))
     y1 = int(np.floor(y))
     x2 = x1 + 1
     y2 = y1 + 1
 
     # Get intensity values
-    b11 = I[x1, y1]
-    b12 = I[x1, y2]
-    b21 = I[x2, y1]
-    b22 = I[x2, y2]
+    b11 = I[y1, x1]
+    b12 = I[y1, x2]
+    b21 = I[y2, x1]
+    b22 = I[y2, x2]
 
     # Interpolation weights 
     wx = x - x1
@@ -51,7 +51,7 @@ def bilinear_interp(I, pt):
     # Bilinear Interpolation
     b1 = (1 - wx) * b11 + wx * b12
     b2 = (1 - wx) * b21 + wx * b22
-    b = (1 - wy) * b1 + (1 - wy) * b2
+    b = (1 - wy) * b1 + wy * b2
 
 
-    return int(b[0])
+    return b

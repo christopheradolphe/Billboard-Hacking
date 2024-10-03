@@ -42,5 +42,4 @@ def dlt_homography(I1pts, I2pts):
     # Normalize DLT Matrix so bottom right entry is 1
     H = H / H[2,2]
 
-
     return H, A

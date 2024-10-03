@@ -28,8 +28,8 @@ def billboard_hack():
     Ist_pts = np.array([[2, 218, 218, 2], [2, 2, 409, 409]])
 
     # Read in the images
-    Iyd = imread('../images/yonge_dundas_square.jpg')
-    Ist = imread('../images/uoft_soldiers_tower_light.png')
+    Iyd = imread('images/yonge_dundas_square.jpg')
+    Ist = imread('images/uoft_soldiers_tower_light.png')
 
     # Create numpy array for images
     Ihack = np.asarray(Iyd)
@@ -56,7 +56,7 @@ def billboard_hack():
                 # Normalize to convert from homogeneous to Cartesian coordinates
                 sampling_pt /= sampling_pt[2]
                 # Extract the x and y coordinates
-                sampling_pt = sampling_pt[:2].flatten()
+                sampling_pt = sampling_pt[:2]
                 # Check if the sampling point is within the bounds of Ist
                 if sampling_pt[0] >= 0 and sampling_pt[0] < Ist.shape[1] - 1:
                     if sampling_pt[1] >= 0 and sampling_pt[1] < Ist.shape[0] - 1:
@@ -68,3 +68,5 @@ def billboard_hack():
     # plt.show()
 
     return Ihack
+
+billboard_hack()
